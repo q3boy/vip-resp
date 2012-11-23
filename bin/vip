@@ -1,0 +1,20 @@
+#!/bin/sh
+if [ $# -lt 1 ]; then
+	echo "Usage: $0 [auto|on|off] [socks...]"
+elif [ $# -lt 2 ]; then
+	SOCKS="$1 "`find . -type s -name '*-vr.sock'`
+else
+	SOCKS=$@
+fi
+SOCK_CMD=''
+
+for SOCK in $SOCKS
+do
+	if [ "0$SOCK_CMD" == "0" ]; then
+		SOCK_CMD=$1
+		echo "Command $SOCK_CMD."
+	else
+		echo "Send $SOCK_CMD to $SOCK."
+		echo $SOCK_CMD | nc -U $SOCK
+	fi
+done
