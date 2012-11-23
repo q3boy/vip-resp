@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ $# -lt 1 ]; then
 	echo "Usage: $0 [auto|on|off] [socks...]"
 elif [ $# -lt 2 ]; then
@@ -6,11 +6,11 @@ elif [ $# -lt 2 ]; then
 else
 	SOCKS=$@
 fi
-SOCK_CMD=''
+SOCK_CMD='_'
 
 for SOCK in $SOCKS
 do
-	if [ "0$SOCK_CMD" == "0" ]; then
+	if [ $SOCK_CMD == "_" ]; then
 		SOCK_CMD=$1
 		echo "Command $SOCK_CMD."
 	else
