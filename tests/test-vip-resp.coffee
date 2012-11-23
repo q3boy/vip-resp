@@ -124,7 +124,7 @@ describe 'Node Vip StatusCode Responser', ->
       , 30
       setTimeout ->
         exec "bin/vip off #{sock}", (e,stdout, stderr)->
-          console.log(stdout, stderr) if e
+          console.log(stdout, stderr)
       , 50
       setTimeout (-> s.status mock.req, mock.resp, ->), 100
 
@@ -149,7 +149,7 @@ describe 'Node Vip StatusCode Responser', ->
       , 30
       setTimeout ->
         exec "bin/vip on #{sock}", (e,stdout, stderr)->
-          console.log(stdout, stderr) if e
+          console.log(stdout, stderr)
       , 50
       setTimeout (-> s.status mock.req, mock.resp, ->), 100
 
@@ -172,7 +172,7 @@ describe 'Node Vip StatusCode Responser', ->
       , 30
       setTimeout ->
         exec "bin/vip off", (e,stdout, stderr)->
-          console.log(stdout, stderr) if e
+          console.log(stdout, stderr)
       , 50
       setTimeout (-> s.status mock.req, mock.resp, ->), 100
       setTimeout ->
@@ -181,7 +181,7 @@ describe 'Node Vip StatusCode Responser', ->
       , 150
       setTimeout ->
         exec "bin/vip auto", (e,stdout, stderr)->
-          console.log(stdout, stderr) if e
+          console.log(stdout, stderr)
       , 200
       setTimeout (-> s.status mock.req, mock.resp, ->), 250
       setTimeout ->
