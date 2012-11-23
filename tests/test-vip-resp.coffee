@@ -122,7 +122,10 @@ describe 'Node Vip StatusCode Responser', ->
         e(flag).to.be 1
         e(mock.resp.statusCode).to.be 200
       , 30
-      setTimeout (-> exec "bin/vip off #{sock}"), 50
+      setTimeout ->
+        exec "bin/vip off #{sock}", (e,stdout, stderr)->
+          console.log(stdout, stderr) if e
+      , 50
       setTimeout (-> s.status mock.req, mock.resp, ->), 100
 
       setTimeout ->
@@ -144,7 +147,10 @@ describe 'Node Vip StatusCode Responser', ->
         e(flag).to.be 1
         e(mock.resp.statusCode).to.be 500
       , 30
-      setTimeout (-> exec "bin/vip on #{sock}"), 50
+      setTimeout ->
+        exec "bin/vip on #{sock}", (e,stdout, stderr)->
+          console.log(stdout, stderr) if e
+      , 50
       setTimeout (-> s.status mock.req, mock.resp, ->), 100
 
       setTimeout ->
@@ -164,13 +170,19 @@ describe 'Node Vip StatusCode Responser', ->
         e(flag).to.be 1
         e(mock.resp.statusCode).to.be 200
       , 30
-      setTimeout (-> exec 'bin/vip off'), 50
+      setTimeout ->
+        exec "bin/vip off", (e,stdout, stderr)->
+          console.log(stdout, stderr) if e
+      , 50
       setTimeout (-> s.status mock.req, mock.resp, ->), 100
       setTimeout ->
         e(flag).to.be 1
         e(mock.resp.statusCode).to.be 503
       , 150
-      setTimeout (-> exec 'bin/vip auto'), 200
+      setTimeout ->
+        exec "bin/vip auto", (e,stdout, stderr)->
+          console.log(stdout, stderr) if e
+      , 200
       setTimeout (-> s.status mock.req, mock.resp, ->), 250
       setTimeout ->
         e(flag).to.be 2
