@@ -27,7 +27,7 @@ VipStatus = (function() {
       success_body: 'success',
       timeout: 2000
     }, options);
-    this.status.bind(this);
+    this.status = this.status.bind(this);
     this.force = 'auto';
     this.net = null;
     this.listen();
@@ -48,14 +48,18 @@ VipStatus = (function() {
     }).listen(this.options.sock_path);
   };
 
-  VipStatus.prototype.close = function() {
+  VipStatus.prototype.close = function(cb) {
+    var _this = this;
     if (!this.net) {
-      return;
+      return cb(null);
     }
-    this.net.close();
-    try {
-      return fs.unlink(this.options.sock_path);
-    } catch (_error) {}
+    return this.net.close(function() {
+      if (fs.existsSync(_this.options.sock_path)) {
+        return fs.unlink(_this.options.sock_path, cb);
+      } else {
+        return cb(null);
+      }
+    });
   };
 
   response = function(resp, code, phrase) {

@@ -30,8 +30,8 @@ describe 'Node Vip StatusCode Responser', ->
     s = null
     flag = 0
     mock.clean()
-  afterEach ->
-    s.close() if s
+  afterEach (done)->
+    s.close(done) if s and s.close
   sock = __dirname + "/test-vr.sock"
   options =
     check_health: (cb)->

@@ -1,6 +1,6 @@
 name: vip-resp
 main: out/release/lib/nvsr.js
-version: 0.0.1
+version: 0.0.2
 description: vip status check responser
 author:
   name: q3boy

@@ -13,7 +13,7 @@ class VipStatus
       success_body : 'success'
       timeout : 2000
     , options
-    @status.bind @
+    @status = @status.bind @
     @force = 'auto'
     @net = null
     @listen()
@@ -26,10 +26,14 @@ class VipStatus
         @force = 'auto' if @force isnt 'on' and @force isnt 'off'
     .listen @options.sock_path
 
-  close : ->
-    return if not @net
-    @net.close()
-    try fs.unlink @options.sock_path
+  close : (cb)->
+    return cb null if not @net
+    @net.close =>
+      if fs.existsSync @options.sock_path
+        fs.unlink @options.sock_path, cb
+      else
+        cb null
+    # try fs.unlinkSync @options.sock_path
 
   response = (resp, code, phrase) ->
     resp.setHeader 'Content-Type', 'text/plain'
